@@ -1,6 +1,8 @@
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { SocialProof } from "@/components/sections/social-proof";
+import { FAQ } from "@/components/sections/faq";
+import { CTA } from "@/components/sections/cta";
 
 export default function Home() {
   return (
@@ -8,6 +10,8 @@ export default function Home() {
       <Hero />
       <Features />
       <SocialProof />
+      <FAQ />
+      <CTA />
     </main>
   );
 }
