@@ -83,7 +83,7 @@ const TickingNumber = ({ value, prefix = "", suffix = "" }: { value: number, pre
 
 export function DashboardMockup() {
   return (
-    <div className="relative w-full max-w-4xl mx-auto aspect-[16/10] bg-slate-950 rounded-xl border border-slate-800 shadow-2xl overflow-hidden group">
+    <div className="relative w-full max-w-4xl mx-auto min-h-[600px] md:aspect-[16/10] bg-slate-950 rounded-xl border border-slate-800 shadow-2xl overflow-hidden group">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
       
@@ -95,8 +95,8 @@ export function DashboardMockup() {
             <div className="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/50" />
             <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50" />
           </div>
-          <div className="h-4 w-px bg-slate-700 mx-1" />
-          <div className="flex items-center gap-2 text-slate-400">
+          <div className="h-4 w-px bg-slate-700 mx-1 hidden sm:block" />
+          <div className="hidden sm:flex items-center gap-2 text-slate-400">
             <Terminal size={14} />
             <span className="text-[10px] font-mono tracking-tight uppercase">nexus-fleet-manager --v-all</span>
           </div>
@@ -110,9 +110,9 @@ export function DashboardMockup() {
       </div>
 
       {/* Main Content Area */}
-      <div className="absolute inset-0 pt-16 p-6 grid grid-cols-12 gap-4">
+      <div className="relative md:absolute inset-0 pt-16 p-4 md:p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-4">
         {/* Sidebar / Stats */}
-        <div className="col-span-3 space-y-4">
+        <div className="col-span-1 md:col-span-3 space-y-4 order-2 md:order-1">
           <div className="p-4 rounded-lg bg-slate-900/40 border border-slate-800/50 backdrop-blur-sm">
             <span className="text-[10px] uppercase text-slate-500 font-bold block mb-1">Total Agents</span>
             <div className="text-2xl font-bold text-white flex items-baseline gap-2">
@@ -121,7 +121,7 @@ export function DashboardMockup() {
             </div>
           </div>
           
-          <div className="p-4 rounded-lg bg-slate-900/40 border border-slate-800/50 backdrop-blur-sm">
+          <div className="hidden sm:block p-4 rounded-lg bg-slate-900/40 border border-slate-800/50 backdrop-blur-sm">
             <span className="text-[10px] uppercase text-slate-500 font-bold block mb-1">Active Compute</span>
             <div className="text-2xl font-bold text-white flex items-baseline gap-2">
               <TickingNumber value={84} suffix="%" />
@@ -140,7 +140,7 @@ export function DashboardMockup() {
         </div>
 
         {/* Center - Fleet Grid */}
-        <div className="col-span-6 grid grid-cols-2 gap-3">
+        <div className="col-span-1 sm:col-span-2 md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-3 order-1 md:order-2">
           <AgentNode name="Sentinel-Alpha" status="active" load={64} />
           <AgentNode name="Cipher-7" status="active" load={28} />
           <AgentNode name="Oracle-Prime" status="warning" load={92} />
@@ -150,8 +150,8 @@ export function DashboardMockup() {
         </div>
 
         {/* Right - Radar/Alerts */}
-        <div className="col-span-3 space-y-4">
-          <div className="aspect-square rounded-lg bg-slate-900/40 border border-slate-800/50 backdrop-blur-sm relative flex items-center justify-center overflow-hidden">
+        <div className="col-span-1 md:col-span-3 space-y-4 order-3">
+          <div className="hidden md:flex aspect-square rounded-lg bg-slate-900/40 border border-slate-800/50 backdrop-blur-sm relative items-center justify-center overflow-hidden">
              {/* Radar Visual */}
              <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-3/4 h-3/4 border border-cyan-500/20 rounded-full" />
