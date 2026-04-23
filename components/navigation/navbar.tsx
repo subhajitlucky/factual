@@ -3,7 +3,6 @@
 import * as React from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 
@@ -18,42 +17,45 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
 
   React.useEffect(() => {
-    const updateScrolled = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
+    const updateScrolled = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener("scroll", updateScrolled)
     return () => window.removeEventListener("scroll", updateScrolled)
   }, [])
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    const targetId = href.replace("#", "")
-    const elem = document.getElementById(targetId)
-    if (elem) {
-      elem.scrollIntoView({ behavior: "smooth" })
-    }
+    const elem = document.getElementById(href.replace("#", ""))
+    if (elem) elem.scrollIntoView({ behavior: "smooth" })
     setMobileMenuOpen(false)
   }
 
   return (
     <motion.nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-        isScrolled ? "border-slate-800 bg-black/50 backdrop-blur-md py-3" : "border-transparent bg-transparent py-5"
+        "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
+        isScrolled ? "py-3" : "py-5"
       )}
     >
-      <Container>
-        <div className="flex items-center justify-between">
+      <div className={cn(
+        "max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300",
+        isScrolled ? "max-w-4xl" : "max-w-7xl"
+      )}>
+        <div className={cn(
+          "flex items-center justify-between transition-all duration-300 px-6 py-2.5 rounded-full border",
+          isScrolled 
+            ? "bg-slate-900/95 backdrop-blur-2xl border-slate-700 shadow-lg" 
+            : "bg-slate-900/60 backdrop-blur-xl border-slate-800"
+        )}>
           {/* Logo */}
           <a 
-            href="#" 
+            href="#hero" 
             className="flex items-center gap-2 group"
-            onClick={(e) => handleLinkClick(e, "#")}
+            onClick={(e) => handleLinkClick(e, "#hero")}
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(59,130,246,0.5)] group-hover:shadow-[0_0_20px_rgba(34,211,238,0.7)] transition-all">
-              <span className="text-white font-bold text-xs">NX</span>
+            <div className="w-7 h-7 bg-cyan-500 rounded-lg flex items-center justify-center group-hover:bg-cyan-400 transition-colors">
+              <span className="text-slate-950 font-black text-[10px]">NX</span>
             </div>
-            <span className="text-xl font-mono font-bold tracking-tighter text-white">
+            <span className="text-base font-mono font-bold tracking-tight text-white">
               NEXUS
             </span>
           </a>
@@ -64,7 +66,7 @@ export function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors"
+                className="text-sm font-semibold text-slate-200 hover:text-white transition-colors"
                 onClick={(e) => handleLinkClick(e, link.href)}
               >
                 {link.name}
@@ -72,42 +74,42 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Action Button */}
+          {/* CTA */}
           <div className="hidden md:flex items-center">
-            <Button variant="secondary" size="sm" className="border-cyan-500/30 hover:border-cyan-500/60 text-cyan-50">
-              Launch Control
+            <Button size="sm" className="h-8 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold px-4 rounded-lg transition-colors">
+              Get Started
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Toggle */}
           <button 
             className="md:hidden text-slate-300"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </Container>
+      </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <motion.div 
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="md:hidden absolute top-full left-0 right-0 bg-slate-950 border-b border-slate-800 p-6 flex flex-col gap-6"
+          className="md:hidden absolute top-full left-4 right-4 mt-2 bg-slate-900/95 backdrop-blur-2xl border border-slate-700 p-6 rounded-2xl flex flex-col gap-5 shadow-xl z-[101]"
         >
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-lg font-medium text-slate-300 hover:text-cyan-400"
+              className="text-base font-semibold text-white hover:text-cyan-400 transition-colors"
               onClick={(e) => handleLinkClick(e, link.href)}
             >
               {link.name}
             </a>
           ))}
-          <Button variant="secondary" className="w-full">
-            Launch Control
+          <Button className="w-full bg-cyan-500 text-slate-950 font-bold py-3">
+            Get Started
           </Button>
         </motion.div>
       )}

@@ -6,104 +6,139 @@ import { Container } from "@/components/ui/container"
 import { FlowBuilder } from "@/components/visuals/flow-builder"
 import { TokenCharts } from "@/components/visuals/token-charts"
 import { GuardrailToggles } from "@/components/visuals/guardrail-toggles"
-import { Layers, Eye, ShieldCheck, LucideIcon } from "lucide-react"
-
-const FeatureItem = ({ 
-  title, 
-  description, 
-  visual: Visual, 
-  icon: Icon, 
-  reversed = false 
-}: { 
-  title: string, 
-  description: string, 
-  visual: React.ComponentType, 
-  icon: LucideIcon,
-  reversed?: boolean 
-}) => {
-  return (
-    <div className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 md:gap-20`}>
-      <motion.div 
-        initial={{ opacity: 0, x: reversed ? 40 : -40 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex-1 space-y-6"
-      >
-        <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-          <Icon size={24} />
-        </div>
-        <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-          {title}
-        </h3>
-        <p className="text-lg text-slate-400 leading-relaxed max-w-xl">
-          {description}
-        </p>
-        <ul className="space-y-3">
-          {['Real-time execution monitoring', 'Adaptive agent allocation', 'Universal API bridge'].map((item) => (
-            <li key={item} className="flex items-center gap-3 text-sm text-slate-500">
-              <div className="w-1 h-1 rounded-full bg-cyan-500" />
-              {item}
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95, x: reversed ? -40 : 40 }}
-        whileInView={{ opacity: 1, scale: 1, x: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex-1 w-full"
-      >
-        <div className="relative p-2 rounded-2xl border border-slate-800 bg-slate-900/30 backdrop-blur-sm shadow-2xl">
-          <Visual />
-        </div>
-      </motion.div>
-    </div>
-  )
-}
+import { Layers, Eye, ShieldCheck } from "lucide-react"
+import { SpotlightCard } from "@/components/ui/spotlight-card"
 
 export function Features() {
   return (
-    <section className="py-24 bg-slate-950 relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none" />
-
+    <section id="features" className="py-32 relative overflow-hidden border-t border-slate-800/50">
       <Container>
-        <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">
-          <h2 className="text-sm font-bold text-cyan-400 uppercase tracking-[0.2em]">The Triple Threat</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Stop guessing. Start <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">commanding.</span>
-          </h3>
-          <p className="text-lg text-slate-400">
-            Most agent frameworks are &quot;black boxes.&quot; Nexus gives you the dials, the levers, and the radar to operate with absolute confidence.
+        <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-widest"
+          >
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            Core Capabilities
+          </motion.div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-[1.1]">
+            Unrivaled control over{" "}
+            <span className="text-cyan-400">autonomous fleets.</span>
+          </h2>
+          <p className="text-lg text-slate-200 max-w-xl mx-auto leading-relaxed">
+            Nexus provides the surgical precision and radical visibility needed to scale agentic operations with absolute confidence.
           </p>
         </div>
 
-        <div className="space-y-32 md:space-y-48">
-          <FeatureItem 
-            icon={Layers}
-            title="Surgical Orchestration"
-            description="Chain complex workflows with sub-second latency. Our proprietary flow-engine ensures data moves between agents with zero loss and maximum efficiency."
-            visual={FlowBuilder}
-          />
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 max-w-7xl mx-auto">
+          
+          {/* Card 1 — Surgical Orchestration */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="md:col-span-8"
+          >
+            <SpotlightCard className="h-full group overflow-hidden" spotlightColor="rgba(6,182,212,0.12)">
+              {/* Text content */}
+              <div className="p-8 md:p-10 pb-6 space-y-5">
+                <div className="w-14 h-14 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <Layers size={28} />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Surgical Orchestration</h3>
+                  <p className="text-base text-slate-200 leading-relaxed max-w-lg">
+                    Chain complex agent workflows with sub-second latency. Our flow-engine ensures data moves with zero loss and cryptographic integrity.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  {["Low Latency", "Zero-Loss", "Auto-Scale"].map((tag) => (
+                    <span key={tag} className="px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-200">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              {/* Visual — sits below text, no overlap */}
+              <div className="px-6 pb-2">
+                <div className="rounded-xl border border-slate-700 bg-slate-900/80 backdrop-blur-md overflow-hidden shadow-2xl h-[280px] transition-transform duration-500 group-hover:scale-[1.01]">
+                  <FlowBuilder />
+                </div>
+              </div>
+            </SpotlightCard>
+          </motion.div>
 
-          <FeatureItem 
-            icon={Eye}
-            title="Radical Visibility"
-            description="Every token, every cent, every millisecond. Track your entire fleet's performance with granular charts and real-time telemetry."
-            visual={TokenCharts}
-            reversed
-          />
+          {/* Card 2 — Radical Visibility */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            className="md:col-span-4"
+          >
+            <SpotlightCard className="h-full group overflow-hidden" spotlightColor="rgba(59,130,246,0.12)">
+              {/* Text content */}
+              <div className="p-8 md:p-10 pb-6 space-y-5">
+                <div className="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                  <Eye size={28} />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-2xl font-bold text-white tracking-tight">Radical Visibility</h3>
+                  <p className="text-base text-slate-200 leading-relaxed">
+                    Every token and every cent tracked in real-time. Full telemetry across your entire fleet.
+                  </p>
+                </div>
+              </div>
+              {/* Visual — sits below text, no overlap */}
+              <div className="px-6 pb-6">
+                <div className="rounded-xl border border-slate-700 bg-slate-900/80 backdrop-blur-md overflow-hidden shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]">
+                  <TokenCharts />
+                </div>
+              </div>
+            </SpotlightCard>
+          </motion.div>
 
-          <FeatureItem 
-            icon={ShieldCheck}
-            title="Unbreakable Reliability"
-            description="Deploy guardrails that actually work. From hard budget caps to human-in-the-loop triggers, keep your agents aligned and your costs predictable."
-            visual={GuardrailToggles}
-          />
+          {/* Card 3 — Unbreakable Reliability */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+            className="md:col-span-12"
+          >
+            <SpotlightCard className="h-full flex flex-col md:flex-row p-8 md:p-12 gap-8 md:gap-16 md:items-center overflow-hidden" spotlightColor="rgba(16,185,129,0.1)">
+              <div className="flex-1 space-y-6 relative z-20">
+                <div className="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <ShieldCheck size={28} />
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white tracking-tight">Unbreakable Reliability</h3>
+                  <p className="text-base text-slate-200 leading-relaxed max-w-xl">
+                    Deploy guardrails that actually work. From hard budget caps to human-in-the-loop triggers, keep your agents aligned and your costs predictable at any scale.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  {["SOC2 Compliance", "VPC Support", "Audit Logs", "SLA Guarantee"].map((feat) => (
+                    <div key={feat} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-sm text-slate-200">
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      {feat}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex-1 w-full relative z-20">
+                <div className="relative p-2 rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl overflow-hidden">
+                  <GuardrailToggles />
+                </div>
+              </div>
+            </SpotlightCard>
+          </motion.div>
+
         </div>
       </Container>
     </section>

@@ -56,7 +56,7 @@ export function GuardrailToggles() {
   })
 
   return (
-    <div className="relative w-full aspect-[16/9] bg-slate-950/50 rounded-xl border border-slate-800 p-6 flex gap-6 overflow-hidden">
+    <div className="relative w-full min-h-[400px] md:aspect-[16/9] bg-slate-950/50 rounded-xl border border-slate-800 p-4 md:p-6 flex flex-col sm:flex-row gap-4 md:gap-6 overflow-hidden">
       {/* Sidebar Controls */}
       <div className="flex-1 space-y-3 relative z-10">
         <Toggle 
@@ -80,7 +80,7 @@ export function GuardrailToggles() {
       </div>
 
       {/* Status Panel */}
-      <div className="w-1/3 flex flex-col gap-3 relative z-10">
+      <div className="w-full sm:w-1/3 flex flex-col gap-3 relative z-10">
         <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/80 backdrop-blur-md flex-1 flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <Bell size={14} className="text-cyan-400" />

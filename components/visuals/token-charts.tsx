@@ -2,41 +2,42 @@
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { TrendingUp } from "lucide-react"
 
 const Bar = ({ index, height }: { index: number, height: number }) => (
-  <motion.div
-    initial={{ height: 0 }}
-    animate={{ height: `${height}%` }}
-    transition={{ 
-      duration: 1, 
-      delay: index * 0.05,
-      ease: "easeOut" 
-    }}
-    className="w-full bg-gradient-to-t from-blue-600/20 to-blue-400 rounded-t-sm relative group"
-  >
-    <div className="absolute inset-0 bg-blue-400 opacity-0 group-hover:opacity-20 transition-opacity" />
-    <div className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform bg-slate-800 text-[8px] font-mono px-1 rounded border border-slate-700 text-white">
-      {Math.round(height * 100)}
-    </div>
-  </motion.div>
+  <div className="flex-1 flex flex-col items-center gap-1 group relative">
+    <motion.div
+      initial={{ height: 0 }}
+      animate={{ height: `${height}%` }}
+      transition={{ 
+        duration: 0.8, 
+        delay: index * 0.03,
+        ease: "circOut" 
+      }}
+      className="w-full bg-gradient-to-t from-blue-600/40 via-blue-500/60 to-blue-400 rounded-t-[2px] relative"
+    >
+      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+    </motion.div>
+    {/* Secondary bar for "shadow" effect */}
+    <motion.div
+      initial={{ height: 0 }}
+      animate={{ height: `${height * 0.6}%` }}
+      transition={{ duration: 1, delay: index * 0.04 }}
+      className="absolute bottom-0 w-[40%] bg-blue-400/20 rounded-t-full blur-[2px] -z-10"
+    />
+  </div>
 )
 
 export function TokenCharts() {
-  const [data, setData] = useState<number[]>([40, 45, 30, 55, 60, 40, 35, 50, 65, 70, 45, 40, 55, 60, 50, 45, 60, 75, 80, 60])
+  const [data, setData] = useState<number[]>(Array.from({ length: 32 }, () => 40))
 
   useEffect(() => {
-    // Wrap in setTimeout to avoid synchronous setState in effect body which triggers cascading renders
     const timer = setTimeout(() => {
-      setData(Array.from({ length: 20 }, () => Math.random() * 60 + 20))
-    }, 0)
+      setData(Array.from({ length: 32 }, () => Math.random() * 70 + 20))
+    }, 100)
     
     const interval = setInterval(() => {
-      setData(prev => {
-        const newData = [...prev.slice(1), Math.random() * 60 + 20]
-        return newData
-      })
-    }, 2000)
+      setData(prev => [...prev.slice(1), Math.random() * 70 + 20])
+    }, 1500)
     return () => {
       clearTimeout(timer)
       clearInterval(interval)
@@ -44,33 +45,30 @@ export function TokenCharts() {
   }, [])
 
   return (
-    <div className="relative w-full aspect-[16/9] bg-slate-950/50 rounded-xl border border-slate-800 p-6 flex flex-col overflow-hidden">
+    <div className="relative w-full h-full min-h-[280px] bg-slate-900/40 rounded-3xl border border-slate-700/30 p-6 md:p-8 flex flex-col overflow-hidden shadow-inner">
       {/* Header */}
-      <div className="flex justify-between items-start mb-6">
-        <div>
-          <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Compute Usage</h4>
+      <div className="flex justify-between items-start mb-8">
+        <div className="space-y-1">
+          <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Live Telemetry</h4>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-mono font-bold text-white tracking-tight">1.2M</span>
-            <span className="text-[10px] text-emerald-500 font-mono">tokens/hr</span>
+            <span className="text-3xl font-mono font-bold text-white tracking-tighter">1.2M</span>
+            <span className="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">tokens/hr</span>
           </div>
         </div>
         <div className="flex gap-4">
-          <div className="text-right">
-            <span className="text-[8px] font-bold text-slate-600 uppercase block">Current Cost</span>
-            <span className="text-sm font-mono text-blue-400">$42.08</span>
-          </div>
-          <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
-            <TrendingUp size={16} />
+          <div className="text-right space-y-1">
+            <span className="text-[8px] font-bold text-slate-500 uppercase block tracking-wider">Fleet Burn</span>
+            <span className="text-lg font-mono text-blue-400">$42.08</span>
           </div>
         </div>
       </div>
 
       {/* Chart Area */}
-      <div className="flex-1 flex items-end gap-1.5 min-h-0 relative">
+      <div className="flex-1 flex items-end gap-1.5 min-h-0 relative px-2">
         {/* Grid lines */}
-        <div className="absolute inset-0 flex flex-col justify-between pointer-events-none">
-          {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="w-full h-px bg-slate-800/50" />
+        <div className="absolute inset-0 flex flex-col justify-between pointer-events-none py-2">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} className="w-full h-px bg-slate-800/30" />
           ))}
         </div>
         
@@ -80,14 +78,14 @@ export function TokenCharts() {
       </div>
 
       {/* X-Axis */}
-      <div className="flex justify-between mt-3 px-1">
+      <div className="flex justify-between mt-6 px-2">
         {['00:00', '06:00', '12:00', '18:00', 'Now'].map((label) => (
-          <span key={label} className="text-[8px] font-mono text-slate-600 uppercase">{label}</span>
+          <span key={label} className="text-[8px] font-mono text-slate-500 uppercase tracking-widest">{label}</span>
         ))}
       </div>
 
-      {/* Background glow */}
-      <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none" />
+      {/* Ambient Inner Glow */}
+      <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none" />
     </div>
   )
 }

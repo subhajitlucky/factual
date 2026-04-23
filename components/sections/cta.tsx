@@ -47,19 +47,27 @@ export function CTA() {
               </span>
             </h2>
             
-            <p className="text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-200 mb-12 max-w-2xl mx-auto">
               Join 500+ enterprises leveraging the Nexus orchestration layer to achieve 
               autonomous fleet operations at scale.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Button size="lg" className="text-lg px-10 py-4">
-                Initialize Your Fleet
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
+              <div className="relative w-full sm:w-auto flex-1">
+                <input 
+                  type="email" 
+                  placeholder="Enter your work email" 
+                  className="w-full h-14 px-6 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all backdrop-blur-sm"
+                />
+              </div>
+              <Button size="lg" className="h-14 px-8 w-full sm:w-auto shrink-0 text-base shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all">
+                Get Early Access
               </Button>
-              <button className="text-slate-400 hover:text-white font-medium transition-colors cursor-pointer">
-                View Documentation →
-              </button>
             </div>
+            
+            <p className="mt-6 text-sm text-slate-500">
+              Free 14-day trial. No credit card required.
+            </p>
           </motion.div>
         </div>
       </Container>
