@@ -4,6 +4,16 @@ import { motion } from "framer-motion"
 import { Container } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
 
+// Generate static particles outside of render to satisfy React 19 purity rules
+const STATIC_PARTICLES = [...Array(20)].map((_, i) => ({
+  id: i,
+  x: (i * 5) + "%", // Distribute them somewhat evenly
+  y: ((i * 7) % 100) + "%",
+  direction: i % 2 === 0 ? "+=100" : "-=100",
+  duration: 1.5 + (i % 3) * 0.5,
+  delay: i * 0.2
+}))
+
 export function CTA() {
   return (
     <section className="relative py-32 overflow-hidden bg-slate-950">
@@ -56,24 +66,24 @@ export function CTA() {
 
       {/* Warp Speed Effect / Lines */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {STATIC_PARTICLES.map((p) => (
           <motion.div
-            key={i}
+            key={p.id}
             initial={{ 
-              x: Math.random() * 100 + "%", 
-              y: Math.random() * 100 + "%", 
+              x: p.x, 
+              y: p.y, 
               opacity: 0, 
               scaleX: 0 
             }}
             animate={{ 
               opacity: [0, 1, 0],
               scaleX: [0, 1, 0],
-              x: (Math.random() > 0.5 ? "+=100" : "-=100") + "px"
+              x: p.direction + "px"
             }}
             transition={{ 
-              duration: Math.random() * 2 + 1, 
+              duration: p.duration, 
               repeat: Infinity, 
-              delay: Math.random() * 5 
+              delay: p.delay 
             }}
             className="absolute h-[1px] w-24 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"
           />
