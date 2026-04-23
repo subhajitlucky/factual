@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container"
 import { FlowBuilder } from "@/components/visuals/flow-builder"
 import { TokenCharts } from "@/components/visuals/token-charts"
 import { GuardrailToggles } from "@/components/visuals/guardrail-toggles"
-import { Layers, Eye, ShieldCheck } from "lucide-react"
+import { Layers, Eye, ShieldCheck, LucideIcon } from "lucide-react"
 
 const FeatureItem = ({ 
   title, 
@@ -18,7 +18,7 @@ const FeatureItem = ({
   title: string, 
   description: string, 
   visual: React.ComponentType, 
-  icon: any,
+  icon: LucideIcon,
   reversed?: boolean 
 }) => {
   return (
@@ -78,7 +78,7 @@ export function Features() {
             Stop guessing. Start <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">commanding.</span>
           </h3>
           <p className="text-lg text-slate-400">
-            Most agent frameworks are "black boxes." Nexus gives you the dials, the levers, and the radar to operate with absolute confidence.
+            Most agent frameworks are &quot;black boxes.&quot; Nexus gives you the dials, the levers, and the radar to operate with absolute confidence.
           </p>
         </div>
 

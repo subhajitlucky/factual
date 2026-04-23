@@ -2,9 +2,9 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import { Search, PenTool, CheckSquare, ChevronRight } from "lucide-react"
+import { Search, PenTool, CheckSquare, LucideIcon } from "lucide-react"
 
-const AgentCard = ({ icon: Icon, name, delay }: { icon: any, name: string, delay: number }) => (
+const AgentCard = ({ icon: Icon, name, delay }: { icon: LucideIcon, name: string, delay: number }) => (
   <motion.div
     initial={{ opacity: 0, x: -20 }}
     whileInView={{ opacity: 1, x: 0 }}

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { TrendingUp, DollarSign } from "lucide-react"
+import { TrendingUp } from "lucide-react"
 
 const Bar = ({ index, height }: { index: number, height: number }) => (
   <motion.div
@@ -23,16 +23,24 @@ const Bar = ({ index, height }: { index: number, height: number }) => (
 )
 
 export function TokenCharts() {
-  const [data, setData] = useState(Array.from({ length: 20 }, () => Math.random() * 60 + 20))
+  const [data, setData] = useState<number[]>([40, 45, 30, 55, 60, 40, 35, 50, 65, 70, 45, 40, 55, 60, 50, 45, 60, 75, 80, 60])
 
   useEffect(() => {
+    // Wrap in setTimeout to avoid synchronous setState in effect body which triggers cascading renders
+    const timer = setTimeout(() => {
+      setData(Array.from({ length: 20 }, () => Math.random() * 60 + 20))
+    }, 0)
+    
     const interval = setInterval(() => {
       setData(prev => {
         const newData = [...prev.slice(1), Math.random() * 60 + 20]
         return newData
       })
     }, 2000)
-    return () => clearInterval(interval)
+    return () => {
+      clearTimeout(timer)
+      clearInterval(interval)
+    }
   }, [])
 
   return (

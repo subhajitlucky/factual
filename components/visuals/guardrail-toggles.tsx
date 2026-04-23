@@ -2,10 +2,10 @@
 
 import React, { useState } from "react"
 import { motion } from "framer-motion"
-import { ShieldAlert, UserCheck, RefreshCcw, Bell } from "lucide-react"
+import { ShieldAlert, UserCheck, RefreshCcw, Bell, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const Toggle = ({ active, onClick, label, icon: Icon }: { active: boolean, onClick: () => void, label: string, icon: any }) => (
+const Toggle = ({ active, onClick, label, icon: Icon }: { active: boolean, onClick: () => void, label: string, icon: LucideIcon }) => (
   <div className="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-slate-900/50 backdrop-blur-sm group hover:border-slate-700 transition-colors">
     <div className="flex items-center gap-3">
       <div className={cn(
